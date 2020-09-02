@@ -1,2 +1,0 @@
-class ReportCard(object):
-    pass
