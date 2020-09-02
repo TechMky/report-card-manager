@@ -1,14 +1,18 @@
+import logging
 from config import DATABASE_URL
 from sqlalchemy import create_engine
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, with_expression
 
-import logging
+LOG_FORMAT = "%(asctime)s %(name)s %(levelname)s %(message)s"
 
 handler = logging.FileHandler('sql.log')
-handler.setLevel(logging.DEBUG)
-logging.getLogger('sqlalchemy').addHandler(handler)
+handler.setFormatter(logging.Formatter(LOG_FORMAT))
+
+sql_logger = logging.getLogger('sqlalchemy.engine')
+sql_logger.setLevel(logging.DEBUG)
+sql_logger.addHandler(handler)
 
 engine = create_engine(DATABASE_URL)
 
