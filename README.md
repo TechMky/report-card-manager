@@ -1,0 +1,5 @@
+### Dependencies
+
+* sqlalchemy
+* mysqlclient
+* rich
