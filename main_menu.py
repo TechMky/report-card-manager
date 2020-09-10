@@ -1,3 +1,4 @@
+from view_handler import view_report_card
 from models import ReportCard, ReportCardSubject
 from db import Session
 
@@ -15,7 +16,8 @@ def get_main_menu():
 
 def get_handlers():
     return {
-        '1': add_report_card
+        '1': add_report_card,
+        '3': view_report_card
     }
 
 def add_report_card():
