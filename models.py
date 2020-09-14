@@ -7,6 +7,12 @@ from sqlalchemy.sql.sqltypes import Float, Integer, String
 Base = declarative_base()
 
 class ReportCard(Base):
+
+    INDEX_NAME = 0
+    INDEX_ADM_NO = 1
+    INDEX_CLASS = 2
+    INDEX_SECTION = 3
+
     __tablename__ = 'report_card'
     report_card_id = Column(Integer, Sequence('report_card_id'), primary_key=True)
     student_name = Column(String(255))

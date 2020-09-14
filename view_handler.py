@@ -1,36 +1,25 @@
 from models import ReportCard
 from db import Session
-from helper import get_choice_from_menu
+from helper import get_query_from_student_search_params
+from sqlalchemy import and_
 from rich.console import Console
 from rich.table import Column, Table
 
-def view_by_name():
-    pass
 
 def view_report_card():
 
-    view_submenu ='''
-        
-        1. View By Student's Name
-        2. View By Student's Admission No
-        3. View By Class & Section
+    # create an empty string list
+    search_params = [ '' ] * 4
 
-        '''
+    search_params[ReportCard.INDEX_NAME] = input("Enter Name: ")
+    search_params[ReportCard.INDEX_ADM_NO] = input("Enter Admission Number: ")
+    search_params[ReportCard.INDEX_CLASS] = input("Enter Class: ")
+    search_params[ReportCard.INDEX_SECTION] = input("Enter Section: ")
 
-    view_handler = {
-        "1": view_by_name
-    }
-    
-    submenu_choice = get_choice_from_menu(view_submenu, view_handler)
-    
-    view_handler[submenu_choice]()
-
-
-def view_by_name():
-    name = input("Enter Student's Name: ")
+    query = get_query_from_student_search_params(search_params)
 
     session = Session()
-    sql_query = session.query(ReportCard).filter(ReportCard.student_name.ilike(f"%{name}%"))
+    sql_query = session.query(ReportCard).filter( and_( *query ) )
     
     result = sql_query.all()
 
