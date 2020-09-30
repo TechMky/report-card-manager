@@ -21,13 +21,13 @@ class ReportCard(Base):
     student_addmission_number = Column(String(255))
     student_class = Column(String(50))
     student_section = Column(String(10))
-    report_card_subjects = relationship('ReportCardSubject', backref='report_card', lazy=True, cascade='all, delete-orphan')
+    report_card_subjects = relationship('ReportCardSubject', backref='report_card', lazy=True, passive_deletes=True, cascade='all, delete, delete-orphan')
 
 
 class ReportCardSubject(Base):
     __tablename__ = 'report_card_subject'
     report_card_subject_id = Column(Integer, Sequence('report_card_subject_id'), primary_key=True)
-    report_card_id = Column(Integer, ForeignKey('report_card.report_card_id'))
+    report_card_id = Column(Integer, ForeignKey('report_card.report_card_id', ondelete="CASCADE"))
     subject_name = Column(String(255))
     marks = Column(Float)
     max_marks = Column(Float)
