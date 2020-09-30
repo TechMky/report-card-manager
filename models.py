@@ -8,13 +8,15 @@ Base = declarative_base()
 
 class ReportCard(Base):
 
-    INDEX_NAME = 0
-    INDEX_ADM_NO = 1
-    INDEX_CLASS = 2
-    INDEX_SECTION = 3
+    INDEX_EXAM_NAME = 0
+    INDEX_NAME = 1
+    INDEX_ADM_NO = 2
+    INDEX_CLASS = 3
+    INDEX_SECTION = 4
 
     __tablename__ = 'report_card'
     report_card_id = Column(Integer, Sequence('report_card_id'), primary_key=True)
+    exam_name = Column(String(255))
     student_name = Column(String(255))
     student_addmission_number = Column(String(255))
     student_class = Column(String(50))

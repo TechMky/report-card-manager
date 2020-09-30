@@ -3,18 +3,23 @@ from db import Session
 from helper import get_query_from_student_search_params, pretty_print_report_card
 from sqlalchemy import and_
 
-
-def view_report_card():
-
+def get_user_input_query():
     # create an empty string list
-    search_params = [ '' ] * 4
+    search_params = [ '' ] * 5
 
-    search_params[ReportCard.INDEX_NAME] = input("Enter Name: ")
+    search_params[ReportCard.INDEX_EXAM_NAME] = input("Enter Exam Name: ")
+    search_params[ReportCard.INDEX_NAME] = input("Enter Student Name: ")
     search_params[ReportCard.INDEX_ADM_NO] = input("Enter Admission Number: ")
     search_params[ReportCard.INDEX_CLASS] = input("Enter Class: ")
     search_params[ReportCard.INDEX_SECTION] = input("Enter Section: ")
 
-    query = get_query_from_student_search_params(search_params)
+    return search_params
+
+def view_report_card():
+
+    search_parameters = get_user_input_query()
+
+    query = get_query_from_student_search_params(search_parameters)
 
     session = Session()
     sql_query = session.query(ReportCard).filter( and_( *query ) )

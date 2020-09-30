@@ -22,6 +22,9 @@ def get_query_from_student_search_params(search_params: list):
         if len(param) == 0:
             continue
 
+        if index == ReportCard.INDEX_EXAM_NAME:
+            queryList.append(ReportCard.exam_name.ilike(f"%{ param }%"))
+
         # index 0 is name
         if index == ReportCard.INDEX_NAME:
             queryList.append(ReportCard.student_name.ilike(f"%{ param }%"))
@@ -44,6 +47,7 @@ def pretty_print_report_card(result: List[ReportCard] ):
     # extract this to a helper function afterwards
     table = Table(show_header=True, header_style="bold green")
     table.add_column("ID")
+    table.add_column("Exam Name")
     table.add_column("Student Name")
     table.add_column("Admission Number")
     table.add_column("Class - Section")
@@ -61,6 +65,7 @@ def pretty_print_report_card(result: List[ReportCard] ):
         table.add_row(
 
             str(report_card.report_card_id), 
+            report_card.exam_name,
             report_card.student_name, 
             report_card.student_addmission_number, 
             f"{report_card.student_class} - {report_card.student_section}", 

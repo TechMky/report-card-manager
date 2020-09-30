@@ -22,6 +22,7 @@ def get_handlers():
 
 def add_report_card():
     report_card_dict = {
+        "exam_name" : input("Enter Exam Name: "),
         "student_name" : input("Enter Student's Name: "),
         "student_addmission_number": input("Enter Student's Admission Number: "),
         "student_class": input("Enter Student's class: "),
