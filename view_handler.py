@@ -27,7 +27,10 @@ def view_report_card():
     result = sql_query.all()
 
     if not result:
-        print("Not Found")
-        return
+        print("No Records Found!")
+        return []
 
     pretty_print_report_card(result)
+    
+    #for use in ext function like delete
+    return result

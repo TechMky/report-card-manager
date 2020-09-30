@@ -1,3 +1,4 @@
+from delete_handlers import delete_report_card
 from view_handler import view_report_card
 from models import ReportCard, ReportCardSubject
 from db import Session
@@ -7,6 +8,7 @@ def get_main_menu():
     1. Add New Report Card
     2. Edit Report Card
     3. View Report Card
+    4. Delete Report Card
     0. Exit
     '''
     
@@ -17,7 +19,8 @@ def get_main_menu():
 def get_handlers():
     return {
         '1': add_report_card,
-        '3': view_report_card
+        '3': view_report_card,
+        '4': delete_report_card,
     }
 
 def add_report_card():
