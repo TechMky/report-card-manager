@@ -8,3 +8,7 @@ ex `pip install rich`
 * mysqlclient
 * rich
 * PyInputPlus
+
+## Dev Dependencies
+
+* names
