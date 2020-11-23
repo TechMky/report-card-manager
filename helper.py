@@ -1,7 +1,7 @@
 from typing import List
 from rich.console import Console
 from rich.table import Table
-from models import ReportCard
+from models import ReportCard, ReportCardSubject
 # helper functions
 
 def get_choice_from_menu(menu: str, handlers: dict):
@@ -72,5 +72,44 @@ def pretty_print_report_card(result: List[ReportCard] ):
             percentage
 
         )
+
+    console.print(table)
+
+
+def pretty_print_report_card_with_subject(result: ReportCard ):
+
+
+    pretty_print_report_card([result])
+
+    console = Console()
+    # extract this to a helper function afterwards
+    table = Table(show_header=True, header_style="bold green")
+    table.add_column("S No.")
+    table.add_column("Subject Name")
+    table.add_column("Marks Obtained")
+    table.add_column("Max Marks")
+    table.add_column("Percentage")
+    
+    slno = 1
+    for subject in result.report_card_subjects:
+
+        # # can optimize to use a single loop
+        # max_total_marks = sum([ subject.max_marks for subject in subject.report_card_subjects ])
+        # obtained_marks = sum([ subject.marks for subject in subject.report_card_subjects ])
+
+        percentage = (subject.marks / subject.max_marks) * 100
+        percentage = str(round(percentage, 2)) + ' %'
+
+        table.add_row(
+
+            str(slno), 
+            subject.subject_name,
+            str(subject.marks), 
+            str(subject.max_marks), 
+            percentage
+
+        )
+
+        slno += 1
 
     console.print(table)

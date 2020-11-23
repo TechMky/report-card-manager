@@ -6,7 +6,7 @@ import pyinputplus as pyip
 def delete_report_card():
     
     #call this so the records are fetched to show to the user
-    result = view_report_card()
+    result = view_report_card(mode='delete')
 
     no_of_records = len(result)
 

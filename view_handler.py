@@ -1,7 +1,8 @@
 from models import ReportCard
 from db import Session
-from helper import get_query_from_student_search_params, pretty_print_report_card
+from helper import get_query_from_student_search_params, pretty_print_report_card, pretty_print_report_card_with_subject
 from sqlalchemy import and_
+import pyinputplus as pyinp
 
 def get_user_input_query():
     # create an empty string list
@@ -15,7 +16,7 @@ def get_user_input_query():
 
     return search_params
 
-def view_report_card():
+def view_report_card(mode='view'):
 
     search_parameters = get_user_input_query()
 
@@ -32,5 +33,19 @@ def view_report_card():
 
     pretty_print_report_card(result)
     
-    #for use in ext function like delete
-    return result
+    if mode != 'view':
+        return result
+
+    # this block executes only if mode is view
+    report_card_id = pyinp.inputInt(prompt='Enter Report Card ID for more details: ', greaterThan=0)
+
+    found_report_card = None
+    for report_card in result:
+        if report_card.report_card_id == report_card_id:
+           found_report_card = report_card
+
+    if not found_report_card:
+        print(f'Report Card wit ID {report_card_id} Not Found in the above table') 
+        return
+    
+    pretty_print_report_card_with_subject(found_report_card)
