@@ -21,7 +21,9 @@ def delete_report_card():
         return
 
     session = Session()
-    session.delete(result)
+    for card in result:
+        session.delete(card)
+
     session.commit()
 
     print(f"Deleted { no_of_records } records")

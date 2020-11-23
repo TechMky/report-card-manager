@@ -33,6 +33,8 @@ def view_report_card(mode='view'):
 
     pretty_print_report_card(result)
     
+    session.close()
+
     if mode != 'view':
         return result
 
